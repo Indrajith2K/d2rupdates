@@ -1,0 +1,154 @@
+/* ═══ App Shell ═══ */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-page);
+}
+
+/* ─── Hero / Page top ─── */
+.hero {
+  background: var(--bg-page);
+  padding: 40px 0 32px;
+}
+
+.heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+
+.heroTitle {
+  font-size: clamp(1.75rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin-bottom: 10px;
+}
+
+.heroSub {
+  font-size: 0.95rem;
+  color: var(--text-tertiary);
+  max-width: 460px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.heroSub strong { color: var(--text-secondary); font-weight: 600; }
+
+/* ─── KPI Row ─── */
+.kpiRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.kpiCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  min-width: 110px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.kpiValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.kpiLabel {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+}
+
+/* ─── Main layout ─── */
+.main {
+  flex: 1;
+  background: var(--bg-page);
+  padding-bottom: 60px;
+}
+
+/* ─── Section header ─── */
+.sectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ─── Card grid (Trello-style board row) ─── */
+.boardRow {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  align-items: flex-start;
+}
+.boardRow::-webkit-scrollbar { display: none; }
+
+/* On desktop with few cards, use grid instead */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+/* ─── Footer ─── */
+.footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border-hairline);
+  padding: 16px 0;
+  background: var(--bg-card);
+}
+
+.footerInner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.73rem;
+  color: var(--text-tertiary);
+}
+
+.footerInner strong { color: var(--text-secondary); font-weight: 500; }
+.footerSep { color: var(--gray-4); }
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .hero { padding: 28px 0 20px; }
+  .heroTitle { letter-spacing: -0.02em; }
+  .kpiRow { gap: 8px; }
+  .kpiCard { padding: 12px 16px; min-width: 90px; }
+  .kpiValue { font-size: 1.25rem; }
+  .cardGrid { grid-template-columns: 1fr; }
+  .footerInner { flex-direction: column; gap: 4px; text-align: center; }
+  .footerSep { display: none; }
+}

@@ -1,0 +1,361 @@
+/* ═══ UpdateLog — Apple × Trello styled activity log ═══ */
+
+.section {
+  animation: pageIn var(--dur-slow) var(--ease-out) both;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Back / Nav row ─── */
+.navRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: var(--shadow-xs);
+  transition:
+    background   var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color        var(--dur-fast) var(--ease-out),
+    transform    var(--dur-fast) var(--spring);
+}
+
+.backBtn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+  transform: translateX(-2px);
+}
+
+.backBtn svg { width: 14px; height: 14px; }
+
+/* ─── Filter bar (Trello label filter style) ─── */
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filterLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-right: 2px;
+}
+
+.filterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-default);
+  background: var(--bg-card);
+  color: var(--text-tertiary);
+  font-size: 0.73rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: var(--shadow-xs);
+  transition:
+    background   var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color        var(--dur-fast) var(--ease-out),
+    transform    var(--dur-fast) var(--spring);
+}
+
+.filterBtn:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-secondary);
+  transform: scale(1.03);
+}
+
+.filterActive {
+  border-color: transparent;
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.filterCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.22);
+  border-radius: 99px;
+  min-width: 17px;
+  height: 17px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0 3px;
+}
+
+.filterBtnAll.filterActive   { background: var(--text-primary); }
+.filterBtnFeature.filterActive { background: var(--blue); }
+.filterBtnFix.filterActive     { background: var(--orange); }
+.filterBtnDesign.filterActive  { background: var(--purple); }
+.filterBtnContent.filterActive { background: var(--green); }
+
+/* ─── Trello-inspired List ─── */
+.logList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ─── Log card (each = one Trello card / call log row) ─── */
+.logCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition:
+    transform    var(--dur-normal) var(--spring),
+    box-shadow   var(--dur-normal) var(--ease-out),
+    border-color var(--dur-fast)   var(--ease-out);
+  animation: cardIn var(--dur-normal) var(--ease-out) both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.logCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-default);
+}
+
+/* ─── Card summary row (always visible) ─── */
+.cardSummary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+}
+
+/* Left: accent pill + date */
+.datePill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  flex-shrink: 0;
+  background: var(--bg-grouped);
+  border-radius: var(--radius-sm);
+  padding: 6px 4px;
+  border: 1px solid var(--border-hairline);
+}
+
+.dateDay {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.dateMonthYear {
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* Center: content */
+.cardContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTopLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+}
+
+.typePill {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 7px;
+  border-radius: var(--radius-pill);
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  flex-shrink: 0;
+}
+
+.sessionId {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-quaternary);
+  letter-spacing: 0.04em;
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  white-space: nowrap;
+}
+
+.cardTitle {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+
+.cardSubline {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cardSubline span {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Right: expand chevron */
+.chevronBtn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--text-quaternary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  transition: color var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.chevronBtn:hover {
+  color: var(--text-secondary);
+  background: var(--bg-grouped);
+}
+
+.chevronIcon {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--dur-normal) var(--spring);
+}
+
+.chevronOpen { transform: rotate(180deg); }
+
+/* ─── Expanded detail panel ─── */
+.detailPanel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height var(--dur-slow) var(--ease-out),
+    opacity    var(--dur-normal) var(--ease-out);
+}
+
+.detailPanelOpen {
+  max-height: 800px;
+  opacity: 1;
+}
+
+.detailInner {
+  padding: 0 16px 16px 76px; /* indent to align with card content */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--border-hairline);
+  padding-top: 14px;
+}
+
+.detailItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.checkIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--green);
+  margin-top: 0.5px;
+}
+
+/* ─── Empty state ─── */
+.emptyState {
+  text-align: center;
+  padding: 56px 24px;
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-hairline);
+}
+
+/* ─── End marker ─── */
+.endMarker {
+  text-align: center;
+  padding: 28px 0 4px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-quaternary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .cardSummary { padding: 12px 14px; gap: 10px; }
+  .datePill { width: 40px; }
+  .dateDay  { font-size: 0.95rem; }
+  .detailInner { padding: 12px 14px; }
+  .filterRow { gap: 5px; }
+  .filterBtn { height: 26px; padding: 0 10px; font-size: 0.68rem; }
+}
+
+@media (max-width: 420px) {
+  .sessionId { display: none; }
+  .cardSubline span:not(:first-child) { display: none; }
+}
